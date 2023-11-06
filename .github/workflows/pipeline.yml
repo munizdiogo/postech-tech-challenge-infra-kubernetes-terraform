@@ -35,17 +35,17 @@ jobs:
 
             - name: Deletar aplicação kubernetes
               run: |
-                  kubectl delete -f /k8s/deployment.yaml
-                  kubectl delete -f /k8s/public-lb.yaml
-                  kubectl delete -f /k8s/private-lb.yaml
-                  kubectl delete -f /k8s/cluster-autoscaler.yaml
+                  kubectl delete -f k8s/deployment.yaml
+                  kubectl delete -f k8s/public-lb.yaml
+                  kubectl delete -f k8s/private-lb.yaml
+                  kubectl delete -f k8s/cluster-autoscaler.yaml
 
             - name: Deletar infra aws criada pelo terraform
               run: |
-                  kubectl delete -f /k8s/deployment.yaml
-                  kubectl delete -f /k8s/public-lb.yaml
-                  kubectl delete -f /k8s/private-lb.yaml
-                  kubectl delete -f /k8s/cluster-autoscaler.yaml
+                  kubectl delete -f k8s/deployment.yaml
+                  kubectl delete -f k8s/public-lb.yaml
+                  kubectl delete -f k8s/private-lb.yaml
+                  kubectl delete -f k8s/cluster-autoscaler.yaml
 
             - name: Inicializar o terraform
               run: cd terraform && terraform init
@@ -58,6 +58,6 @@ jobs:
 
             - name: Fazer o deploy
               run: |
-                  kubectl apply -f /k8s/deployment.yaml
-                  kubectl apply -f /k8s/public-lb.yaml
-                  kubectl apply -f /k8s/private-lb.yaml
+                  kubectl apply -f k8s/deployment.yaml
+                  kubectl apply -f k8s/public-lb.yaml
+                  kubectl apply -f k8s/private-lb.yaml
