@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
     # This workflow contains a single job called "build"
-    terraform-init:
+    terraform:
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
 
@@ -28,25 +28,14 @@ jobs:
             - name: Inicializa o terraform
               run: cd terraform && terraform init
 
-    terraform-apply:
-        # The type of runner that the job will run on
-        runs-on: ubuntu-latest
-
-        needs: terraform-init
-
-        # Steps represent a sequence of tasks that will be executed as part of the job
-        steps:
-            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-            - uses: actions/checkout@v3
-
             - name: Executa o script
-              run: cd terraform && terraform apply
+              run: terraform apply
 
     access-aws-instance:
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
 
-        needs: terraform-apply
+        needs: terraform
 
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
