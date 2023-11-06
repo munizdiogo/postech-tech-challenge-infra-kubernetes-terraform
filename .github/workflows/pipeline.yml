@@ -4,10 +4,8 @@ on:
     push:
         branches: ["main"]
 
-    workflow_run:
-        workflows: ["Pipeline"]
-        types:
-          - completed
+    repository_dispatch:
+        types: [Pipeline]
 
     workflow_dispatch:
 
