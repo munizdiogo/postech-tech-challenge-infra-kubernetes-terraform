@@ -37,7 +37,7 @@ jobs:
               run: cd terraform && terraform init
 
             - name: Executa o script
-              run: cd terraform && terraform apply
+              run: cd terraform && terraform apply -auto-approve
 
     access-aws-instance:
         # The type of runner that the job will run on
