@@ -33,6 +33,20 @@ jobs:
                   aws configure set default_region_name ${{ secrets.AWS_DEFAULT_REGION_NAME }}
                   aws configure set default_output_format JSON
 
+            - name: Deletar aplicação kubernetes
+              run: |
+                  kubectl delete -f ~/k8s/deployment.yaml
+                  kubectl delete -f ~/k8s/public-lb.yaml
+                  kubectl delete -f ~/k8s/private-lb.yaml
+                  kubectl delete -f ~/k8s/cluster-autoscaler.yaml
+
+            - name: Deletar infra aws criada pelo terraform
+              run: |
+                  kubectl delete -f ~/k8s/deployment.yaml
+                  kubectl delete -f ~/k8s/public-lb.yaml
+                  kubectl delete -f ~/k8s/private-lb.yaml
+                  kubectl delete -f ~/k8s/cluster-autoscaler.yaml
+
             - name: Inicializar o terraform
               run: cd terraform && terraform init
 
