@@ -25,25 +25,36 @@ jobs:
 
             - name: Configurar aws cli
               run: |
-                  pip install awscli
+                  sudo apt install -y awscli
                   aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
                   aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws configure set default_region_name ${{ secrets.AWS_DEFAULT_REGION_NAME }}
                   aws configure set default_output_format JSON
 
-            - name: Inicializar o terraform
-              run: cd terraform && terraform init
+            # - name: Inicializar o terraform
+            #   run: cd terraform && terraform init
 
-            - name: Executar o script terraform
-              run: cd terraform && terraform apply -auto-approve
+            # - name: Executar o script terraform
+            #   run: cd terraform && terraform apply -auto-approve
 
             - name: Instalar docker desktop
               run: |
-                  sudo apt update && sudo apt install -y docker.io
-                  sudo usermod -aG docker $USER
+                  sudo apt install -y ca-certificates curl gnupg lsb-release
+                  sudo mkdir -p /etc/apt/keyrings
+                  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+                  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+                  sudo apt update -y
+                  curl -O https://desktop.docker.com/linux/main/amd64/docker-desktop-4.25.0-amd64.deb
+                  sudo apt-get -y install ./docker-desktop-4.25.0-amd64.deb
 
             - name: Instalar kubectl
-              run: sudo snap install kubectl --classic
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y apt-transport-https ca-certificates curl
+                curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+                echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+                sudo apt-get update
+                sudo apt-get install -y kubectl
 
             - name: Atualizar arquivo de configuração kubeconfig
               run: aws eks --region us-east-1 update-kubeconfig --name postech
