@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: producao
-          image: diogomuniz/techchallenge-aplicacao-servico-producao:latest
+          image: 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-producao
           ports:
             - name: porta-producao
               containerPort: 80

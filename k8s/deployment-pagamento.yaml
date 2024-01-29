@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: pagamento
-          image: diogomuniz/techchallenge-aplicacao-servico-pagamento:latest
+          image: 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-pagamento
           ports:
             - name: porta-pagto
               containerPort: 80

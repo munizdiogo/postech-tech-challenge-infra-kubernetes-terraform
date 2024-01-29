@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: autenticacao
-          image: diogomuniz/techchallenge-aplicacao-servico-autenticacao:latest
+          image: d751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-autenticacao
           ports:
             - name: porta-auth
               containerPort: 80

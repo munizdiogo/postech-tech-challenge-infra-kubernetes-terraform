@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: pedido
-          image: diogomuniz/techchallenge-aplicacao-servico-pedido:latest
+          image: 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-pedido
           ports:
             - name: porta-pedido
               containerPort: 80
