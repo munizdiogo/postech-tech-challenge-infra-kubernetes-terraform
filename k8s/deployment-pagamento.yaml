@@ -19,18 +19,18 @@ spec:
         tier: frontend
     spec:
       containers:
-        - name: pagamento
-          image: 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-pagamento
-          ports:
-            - name: porta-pagto
-              containerPort: 80
-          resources:
-            requests:
-              memory: 128Mi
-              cpu: 250m
-            limits:
-              memory: 128Mi
-              cpu: 250m
+      - name: pagamento
+        image: 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-pagamento
+        ports:
+          - name: porta-pagto
+            containerPort: 80
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 250m
+          limits:
+            memory: 128Mi
+            cpu: 250m
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -40,3 +40,5 @@ spec:
                     operator: In
                     values:
                       - general
+
+
