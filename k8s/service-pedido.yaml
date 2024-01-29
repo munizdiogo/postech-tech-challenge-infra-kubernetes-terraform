@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pedido-private-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+spec:
+  selector:
+    app: pedido
+  ports:
+    - name: porta-pedido
+      protocol: TCP
+      port: 8082
+      targetPort: porta-pedido
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pedido-public-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+spec:
+  selector:
+    app: pedido
+  ports:
+    - name: porta-pedido
+      protocol: TCP
+      port: 8082
+      targetPort: porta-pedido
+  type: LoadBalancer

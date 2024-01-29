@@ -1,27 +1,28 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aplicacaoweb
+  name: pagamento
   labels:
-    app: aplicacaoweb
+    app: pagamento
     tier: frontend
 spec:
   selector:
     matchLabels:
-      app: aplicacaoweb
+      app: pagamento
       tier: frontend
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
-        app: aplicacaoweb
+        app: pagamento
         tier: frontend
     spec:
       containers:
-        - name: aplicacaoweb
-          image: 096012785257.dkr.ecr.us-east-1.amazonaws.com/techchallenge-aplicacao:latest
+        - name: pagamento
+          image: diogomuniz/techchallenge-aplicacao-servico-pagamento:latest
           ports:
-            - name: web
+            - name: porta-pagto
               containerPort: 80
           resources:
             requests:

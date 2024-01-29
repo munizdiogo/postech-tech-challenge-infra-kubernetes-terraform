@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pedido
+  labels:
+    app: pedido
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: pedido
+      tier: frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: pedido
+        tier: frontend
+    spec:
+      containers:
+        - name: pedido
+          image: diogomuniz/techchallenge-aplicacao-servico-pedido:latest
+          ports:
+            - name: porta-pedido
+              containerPort: 80
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 250m
+            limits:
+              memory: 256Mi
+              cpu: 250m
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - general

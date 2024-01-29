@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: producao-private-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+spec:
+  selector:
+    app: producao
+  ports:
+    - name: porta-producao
+      protocol: TCP
+      port: 8084
+      targetPort: porta-producao
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: producao-public-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+spec:
+  selector:
+    app: producao
+  ports:
+    - name: porta-producao
+      protocol: TCP
+      port: 8084
+      targetPort: porta-producao
+  type: LoadBalancer
+
+---
+

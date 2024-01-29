@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: produto
+  labels:
+    app: produto
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: produto
+      tier: frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: produto
+        tier: frontend
+    spec:
+      containers:
+        - name: produto
+          image: diogomuniz/techchallenge-aplicacao-servico-produto:latest
+          ports:
+            - name: porta-produto
+              containerPort: 80
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 250m
+            limits:
+              memory: 256Mi
+              cpu: 250m
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - general
