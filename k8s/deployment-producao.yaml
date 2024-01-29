@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: producao
       tier: frontend
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: producao
-          image: diogomuniz/techchallenge-producao:latest
+          image: diogomuniz/techchallenge-aplicacao-servico-producao:latest
           ports:
             - name: porta-producao
               containerPort: 80
