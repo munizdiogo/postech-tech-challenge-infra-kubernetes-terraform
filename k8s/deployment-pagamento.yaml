@@ -25,12 +25,12 @@ spec:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: AWS_ACCESS_KEY_ID
+              name: my-secrets
               key: AWS_ACCESS_KEY_ID
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
-              name: AWS_SECRET_ACCESS_KEY
+              name: my-secrets
               key: AWS_SECRET_ACCESS_KEY
         ports:
           - name: porta-pagto
