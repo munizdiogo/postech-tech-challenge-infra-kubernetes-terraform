@@ -12,7 +12,7 @@ spec:
   ports:
     - name: porta-rabbitmq
       protocol: TCP
-      port: 8085
+      port: 15672
       targetPort: porta-rabbitmq
   type: LoadBalancer
 
@@ -29,7 +29,7 @@ spec:
   ports:
     - name: porta-rabbitmq
       protocol: TCP
-      port: 8085
+      port: 15672
       targetPort: porta-rabbitmq
   type: LoadBalancer
 
