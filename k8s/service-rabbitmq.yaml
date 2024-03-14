@@ -10,13 +10,17 @@ spec:
   selector:
     app: rabbitmq
   ports:
-    - name: porta-rabbitmq
-      protocol: TCP
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
+    - protocol: TCP
       port: 15672
-      targetPort: porta-rabbitmq
+      targetPort: 15672
   type: LoadBalancer
 
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -27,11 +31,10 @@ spec:
   selector:
     app: rabbitmq
   ports:
-    - name: porta-rabbitmq
-      protocol: TCP
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
+    - protocol: TCP
       port: 15672
-      targetPort: porta-rabbitmq
+      targetPort: 15672
   type: LoadBalancer
-
----
-
