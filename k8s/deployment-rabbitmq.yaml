@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+        tier: frontend
+    spec:
+      containers:
+        - name: rabbitmq
+          image: 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-rabbitmq
+          ports:
+            - name: porta-rabbitmq
+              containerPort: 5672
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 250m
+            limits:
+              memory: 128Mi
+              cpu: 250m
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - general
