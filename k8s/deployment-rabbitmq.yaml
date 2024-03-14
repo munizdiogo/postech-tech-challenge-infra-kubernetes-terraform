@@ -19,10 +19,17 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-rabbitmq
+          image: rabbitmq:latest
           ports:
             - name: porta-rabbitmq
               containerPort: 5672
+            - name: porta-rabbitmq-web
+              containerPort: 15672
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: "postech"
+            - name: RABBITMQ_DEFAULT_PASS
+              value: "Postech123"
           resources:
             requests:
               memory: 128Mi
