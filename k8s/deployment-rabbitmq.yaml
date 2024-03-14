@@ -1,35 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rabbitmq
-  labels:
-    app: rabbitmq
-    tier: frontend
+  name: rabbitmq-deployment
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: rabbitmq
-      tier: frontend
-  replicas: 1
   template:
     metadata:
       labels:
         app: rabbitmq
-        tier: frontend
     spec:
       containers:
         - name: rabbitmq
           image: rabbitmq:latest
           ports:
-            - name: porta-rabbitmq
-              containerPort: 5672
-            - name: porta-rabbitmq-web
-              containerPort: 15672
+            - containerPort: 5672
+            - containerPort: 15672
           env:
             - name: RABBITMQ_DEFAULT_USER
-              value: "postech"
+              value: postech_rabbitmq
             - name: RABBITMQ_DEFAULT_PASS
-              value: "Postech123"
+              value: Postech123
           resources:
             requests:
               memory: 128Mi
