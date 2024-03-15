@@ -1,17 +1,69 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq-service
+  name: rabbitmq-private-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
-  type: LoadBalancer
   selector:
     app: rabbitmq
   ports:
     - name: rabbitmq-amqp
       protocol: TCP
       port: 5672
-      targetPort: 5672
-    - name: rabbitmq-management
+      targetPort: rabbitmq-amqp
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-public-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: rabbitmq-amqp
+      protocol: TCP
+      port: 5672
+      targetPort: rabbitmq-amqp
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-private-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: rabbitmq-web
       protocol: TCP
       port: 15672
-      targetPort: 15672
+      targetPort: rabbitmq-web
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-public-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: rabbitmq-web
+      protocol: TCP
+      port: 15672
+      targetPort: rabbitmq-web
+  type: LoadBalancer
